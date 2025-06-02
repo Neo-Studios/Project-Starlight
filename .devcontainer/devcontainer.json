@@ -3,7 +3,7 @@
 {
 	"name": "Java",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/java:1-21",
+	"image": "mcr.microsoft.com/devcontainers/java:1-17",
 
 	"features": {
 		"ghcr.io/devcontainers/features/java:1": {
@@ -46,7 +46,8 @@
 				"dbaeumer.vscode-eslint",
 				"esbenp.prettier-vscode",
 				// Recommended for YAML
-				"redhat.vscode-yaml"
+				"redhat.vscode-yaml",
+				"atommaterial.a-file-icon-vscode"
 			]
 		}
 	},
