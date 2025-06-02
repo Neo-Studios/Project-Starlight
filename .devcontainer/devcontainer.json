@@ -18,26 +18,45 @@
 	"customizations": {
 		// Configure properties specific to VS Code.
 		"vscode": {
-			"settings": {},
+			"settings": {
+				"keyboard.dispatch": "keyCode",
+				"workbench.colorTheme": "Monospace Dark",
+				"workbench.preferredDarkColorTheme": "Monospace Dark",
+				"workbench.preferredLightColorTheme": "Monospace Dark"
+			},
 			"extensions": [
-                "vscjava.vscode-java-pack",
-                "redhat.java",
-                "vscjava.vscode-maven",
-                "vscjava.vscode-spring-initializr",
-                "vscjava.vscode-spring-boot-dashboard",
-                "vscjava.vscode-spring-cloud",
-                "vscjava.vscode-spring-boot",
-                "keksiqc.idx-monospace-theme"
+				"vscjava.vscode-java-pack",
+				"redhat.java",
+				"vscjava.vscode-maven",
+				"vscjava.vscode-spring-initializr",
+				"vscjava.vscode-spring-boot-dashboard",
+				"vscjava.vscode-spring-cloud",
+				"vscjava.vscode-spring-boot",
+				"keksiqc.idx-monospace-theme",
+				// Recommended for Python development
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				// Recommended for Docker
+				"ms-azuretools.vscode-docker",
+				// Recommended for GitHub Copilot
+				"github.copilot",
+				// Recommended for Markdown
+				"yzhang.markdown-all-in-one",
+				// Recommended for ESLint/JS/TS
+				"dbaeumer.vscode-eslint",
+				"esbenp.prettier-vscode",
+				// Recommended for YAML
+				"redhat.vscode-yaml"
 			]
 		}
-	}
+	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "java -version",
+	"postCreateCommand": "echo 'Welcome to Project Starlight! Your Java game dev environment is ready.'",
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+	"remoteUser": "root"
 }
