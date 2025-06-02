@@ -69,10 +69,16 @@ mvn test
 
 ---
 
+# Run the Java game with a virtual display (Xvfb)
 
+If you are running in a dev container or headless environment, use Xvfb to provide a display for the game window:
 
+```sh
+sudo apt-get update && sudo apt-get install -y xvfb
+xvfb-run mvn exec:java -Dexec.mainClass="com.neostudios.starlight.App"
+```
 
----
+You can also add this as a script or alias for convenience.
 
 
 
