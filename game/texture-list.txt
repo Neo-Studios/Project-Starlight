@@ -1,0 +1,18 @@
+# Texture Files Needed for Project Starlight
+
+Below is a list of all texture files you may want to provide for your custom 16x16 textures. Place your texture files in a suitable directory (e.g., `game/src/main/resources/textures/`).
+
+## Suggested Texture Files (16x16 PNG recommended)
+
+- player.png         # Main player sprite
+- enemy.png          # Generic enemy sprite
+- background.png     # Main background
+- bullet.png         # Projectile or bullet
+- powerup.png        # Power-up item
+- explosion.png      # Explosion effect
+- ui_heart.png       # UI heart/life icon
+- ui_coin.png        # UI coin/score icon
+- wall.png           # Wall or obstacle
+- floor.png          # Floor tile
+
+You can add or remove files as needed for your game. All textures should be 16x16 pixels for best results.
