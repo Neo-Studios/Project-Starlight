@@ -1,6 +1,12 @@
 # Contributing to Project Starlight
 
-Thank you for considering contributing to this project!
+Thank you for your interest in contributing! 🎉 We welcome all kinds of contributions—code, ideas, bug reports, and more.
+
+## How to Get Involved
+- ⭐ Star the repo to show your support
+- 🐞 Report bugs and suggest features
+- 💻 Submit pull requests for code improvements
+- 📚 Help improve documentation
 
 ## How to Contribute
 
