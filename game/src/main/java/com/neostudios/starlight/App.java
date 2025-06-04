@@ -12,12 +12,20 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 public class App extends JPanel {
-    private int playerX = 200;
-    private int playerY = 200;
-    private final int playerSize = 40;
-    private int moveSpeed = 5;
+    @SuppressWarnings("unused")
+    // The player object is currently not used, but will be used for future encapsulation of player state and logic
+    private final Player player;
+    private static final int PLAYER_START_X = 200;
+    private static final int PLAYER_START_Y = 200;
+    private static final int PLAYER_SIZE = 40;
+    private static final int MOVE_SPEED = 5;
+    private int playerX;
+    private int playerY;
+
+    private GameState gameState = GameState.MENU;
 
     public App() {
+        this.player = new Player("Player1");
         setFocusable(true);
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(500, 500));
@@ -25,22 +33,60 @@ public class App extends JPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 int key = e.getKeyCode();
-                if (key == KeyEvent.VK_LEFT) playerX -= moveSpeed;
-                if (key == KeyEvent.VK_RIGHT) playerX += moveSpeed;
-                if (key == KeyEvent.VK_UP) playerY -= moveSpeed;
-                if (key == KeyEvent.VK_DOWN) playerY += moveSpeed;
+                if (gameState == GameState.MENU && key == KeyEvent.VK_ENTER) {
+                    setGameState(GameState.PLAYING);
+                } else if (gameState == GameState.PLAYING) {
+                    // Use enhanced switch (rule switch) for key handling
+                    switch (key) {
+                        case KeyEvent.VK_LEFT -> playerX -= MOVE_SPEED;
+                        case KeyEvent.VK_RIGHT -> playerX += MOVE_SPEED;
+                        case KeyEvent.VK_UP -> playerY -= MOVE_SPEED;
+                        case KeyEvent.VK_DOWN -> playerY += MOVE_SPEED;
+                        case KeyEvent.VK_P -> setGameState(GameState.PAUSED);
+                    }
+                } else if (gameState == GameState.PAUSED && key == KeyEvent.VK_P) {
+                    setGameState(GameState.PLAYING);
+                }
                 repaint();
             }
         });
         Timer timer = new Timer(16, e -> repaint());
         timer.start();
+        playerX = PLAYER_START_X;
+        playerY = PLAYER_START_Y;
+    }
+
+    public void setGameState(GameState state) {
+        this.gameState = state;
+        repaint();
+    }
+
+    public GameState getGameState() {
+        return this.gameState;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.CYAN);
-        g.fillOval(playerX, playerY, playerSize, playerSize);
+        // Use enhanced switch (rule switch) for game state rendering
+        switch (gameState) {
+            case MENU -> {
+                g.setColor(Color.WHITE);
+                g.drawString("Press ENTER to Start", 180, 250);
+            }
+            case PLAYING -> {
+                g.setColor(Color.CYAN);
+                g.fillOval(playerX, playerY, PLAYER_SIZE, PLAYER_SIZE);
+            }
+            case PAUSED -> {
+                g.setColor(Color.YELLOW);
+                g.drawString("Game Paused", 200, 250);
+            }
+            case GAME_OVER -> {
+                g.setColor(Color.RED);
+                g.drawString("Game Over", 200, 250);
+            }
+        }
     }
 
     public static void main(String[] args) {
