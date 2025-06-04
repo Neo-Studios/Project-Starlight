@@ -1,8 +1,9 @@
 package com.neostudios.starlight;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit test for simple App.
@@ -46,5 +47,12 @@ public class AppTest {
         assertNotNull(GameState.valueOf("PLAYING"));
         assertNotNull(GameState.valueOf("PAUSED"));
         assertNotNull(GameState.valueOf("GAME_OVER"));
+    }
+
+    @Test
+    void testConfigDefaults() {
+        App app = new App();
+        assertEquals(200, app.getPlayerX()); // Default from config or constant
+        assertEquals(200, app.getPlayerY());
     }
 }

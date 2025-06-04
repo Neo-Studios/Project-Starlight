@@ -7,9 +7,11 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -30,6 +32,8 @@ public class App extends JPanel {
     private int playerY;
 
     private GameState gameState = GameState.MENU;
+    private static final String CONFIG_PATH = "game/assets/game.properties";
+    private final Properties config = new Properties();
 
     private void loadTextures() {
         try {
@@ -53,37 +57,108 @@ public class App extends JPanel {
         }
     }
 
+    private void loadConfig() {
+        try (FileInputStream fis = new FileInputStream(CONFIG_PATH)) {
+            config.load(fis);
+        } catch (Exception e) {
+            System.err.println("Warning: Could not load config file, using defaults. " + e.getMessage());
+        }
+    }
+
+    // Flexible input management
+    private final Map<Integer, Boolean> keyStates = new HashMap<>();
+
+    private void setupInputManagement() {
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                keyStates.put(e.getKeyCode(), true);
+                handleInput();
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                keyStates.put(e.getKeyCode(), false);
+            }
+        });
+    }
+
+    private void handleInput() {
+        if (gameState == GameState.MENU && keyStates.getOrDefault(KeyEvent.VK_ENTER, false)) {
+            setGameState(GameState.PLAYING);
+        } else if (gameState == GameState.PLAYING) {
+            int moveSpeed = Integer.parseInt(config.getProperty("player.move_speed", String.valueOf(MOVE_SPEED)));
+            // Process continuous movement based on key states
+            if (keyStates.getOrDefault(KeyEvent.VK_LEFT, false)) playerX -= moveSpeed;
+            if (keyStates.getOrDefault(KeyEvent.VK_RIGHT, false)) playerX += moveSpeed;
+            if (keyStates.getOrDefault(KeyEvent.VK_UP, false)) playerY -= moveSpeed;
+            if (keyStates.getOrDefault(KeyEvent.VK_DOWN, false)) playerY += moveSpeed;
+            if (keyStates.getOrDefault(KeyEvent.VK_P, false)) setGameState(GameState.PAUSED);
+        } else if (gameState == GameState.PAUSED && keyStates.getOrDefault(KeyEvent.VK_P, false)) {
+            setGameState(GameState.PLAYING);
+        }
+        repaint();
+    }
+
+    // --- Game logic separation example ---
+    // In a real project, these would be separate classes/files.
+    class Enemy {
+        int x, y;
+        BufferedImage texture;
+        Enemy(int x, int y, BufferedImage texture) {
+            this.x = x;
+            this.y = y;
+            this.texture = texture;
+        }
+        void render(Graphics g) {
+            if (texture != null) {
+                g.drawImage(texture, x, y, App.PLAYER_SIZE, App.PLAYER_SIZE, null);
+            } else {
+                g.setColor(Color.RED);
+                g.fillRect(x, y, App.PLAYER_SIZE, App.PLAYER_SIZE);
+            }
+        }
+    }
+
+    class Bullet {
+        int x, y;
+        BufferedImage texture;
+        Bullet(int x, int y, BufferedImage texture) {
+            this.x = x;
+            this.y = y;
+            this.texture = texture;
+        }
+        void render(Graphics g) {
+            if (texture != null) {
+                g.drawImage(texture, x, y, 16, 16, null);
+            } else {
+                g.setColor(Color.YELLOW);
+                g.fillOval(x, y, 16, 16);
+            }
+        }
+    }
+
+    // Example game objects for demonstration
+    private final Enemy demoEnemy;
+    private final Bullet demoBullet;
+
     public App() {
+        loadConfig();
         this.player = new Player("Player1");
         loadTextures();
         setFocusable(true);
         setBackground(Color.BLACK);
-        setPreferredSize(new Dimension(500, 500));
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                int key = e.getKeyCode();
-                if (gameState == GameState.MENU && key == KeyEvent.VK_ENTER) {
-                    setGameState(GameState.PLAYING);
-                } else if (gameState == GameState.PLAYING) {
-                    // Use enhanced switch (rule switch) for key handling
-                    switch (key) {
-                        case KeyEvent.VK_LEFT -> playerX -= MOVE_SPEED;
-                        case KeyEvent.VK_RIGHT -> playerX += MOVE_SPEED;
-                        case KeyEvent.VK_UP -> playerY -= MOVE_SPEED;
-                        case KeyEvent.VK_DOWN -> playerY += MOVE_SPEED;
-                        case KeyEvent.VK_P -> setGameState(GameState.PAUSED);
-                    }
-                } else if (gameState == GameState.PAUSED && key == KeyEvent.VK_P) {
-                    setGameState(GameState.PLAYING);
-                }
-                repaint();
-            }
-        });
+        int width = Integer.parseInt(config.getProperty("window.width", "500"));
+        int height = Integer.parseInt(config.getProperty("window.height", "500"));
+        setPreferredSize(new Dimension(width, height));
+        playerX = Integer.parseInt(config.getProperty("player.start_x", String.valueOf(PLAYER_START_X)));
+        playerY = Integer.parseInt(config.getProperty("player.start_y", String.valueOf(PLAYER_START_Y)));
+        setupInputManagement();
         Timer timer = new Timer(16, e -> repaint());
         timer.start();
-        playerX = PLAYER_START_X;
-        playerY = PLAYER_START_Y;
+        // Instantiate demo game objects
+        demoEnemy = new Enemy(100, 100, textures.get("enemy.png"));
+        demoBullet = new Bullet(playerX + 10, playerY - 20, textures.get("bullet.png"));
     }
 
     public void setGameState(GameState state) {
@@ -94,6 +169,10 @@ public class App extends JPanel {
     public GameState getGameState() {
         return this.gameState;
     }
+
+    // For testing purposes
+    int getPlayerX() { return playerX; }
+    int getPlayerY() { return playerY; }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -120,16 +199,10 @@ public class App extends JPanel {
                     g.setColor(Color.CYAN);
                     g.fillOval(playerX, playerY, PLAYER_SIZE, PLAYER_SIZE);
                 }
-                // Example: Draw an enemy
-                BufferedImage enemyImg = textures.get("enemy.png");
-                if (enemyImg != null) {
-                    g.drawImage(enemyImg, 100, 100, PLAYER_SIZE, PLAYER_SIZE, null);
-                }
-                // Example: Draw a bullet
-                BufferedImage bulletImg = textures.get("bullet.png");
-                if (bulletImg != null) {
-                    g.drawImage(bulletImg, playerX + 10, playerY - 20, 16, 16, null);
-                }
+                // Draw enemy using separated logic
+                if (demoEnemy != null) demoEnemy.render(g);
+                // Draw bullet using separated logic
+                if (demoBullet != null) demoBullet.render(g);
                 // Example: Draw a powerup
                 BufferedImage powerupImg = textures.get("powerup.png");
                 if (powerupImg != null) {
