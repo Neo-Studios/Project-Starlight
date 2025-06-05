@@ -1,0 +1,109 @@
+# Project Starlight – Full Repository Folder Tree (as of 2025-06-05)
+
+```
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+guide-to-java.md
+LICENSE
+README_TEMPLATE.md
+README.md
+SECURITY.md
+SUPPORT.md
+assets/
+    logo.png
+game/
+    pom.xml
+    texture-list.txt
+    assets/
+        game.properties
+    src/
+        main/
+            java/
+                com/
+                    neostudios/
+                        starlight/
+                            App.java
+                            AssetManager.java
+                            ConfigManager.java
+                            GameState.java
+                            GameStateManager.java
+                            Player.java
+                            StarlightScene.java
+                            assets/
+                            neolight/
+                                AssetManager.java
+                                EngineLogger.java
+                                EventBus.java
+                                InputManager.java
+                                NeoLightEngine.java
+                                NeoLightGame.java
+                                Renderer.java
+                                Scene.java
+                                ...
+        test/
+            java/
+                com/
+                    neostudios/
+                        starlight/
+                            AppTest.java
+    target/
+        game-0.0.1.alpha1.jar
+        prototype-proto1.test.110004062025.dev_unit.jar
+        classes/
+            com/
+                neostudios/
+                    starlight/
+                        App.class
+                        App$Bullet.class
+                        App$Enemy.class
+                        ConfigManager.class
+                        GameState.class
+                        GameStateManager.class
+                        Player.class
+                        assets/
+                        neolight/
+                            AssetManager.class
+                            EngineLogger.class
+                            EngineLogger$Level.class
+                            EventBus.class
+                            InputManager.class
+                            NeoLightEngine.class
+                            NeoLightGame.class
+                            README.md
+                            Renderer.class
+                            Scene.class
+                            SceneManager.class
+                            TimerManager.class
+                            TimerManager$TimerTask.class
+        generated-sources/
+            annotations/
+        generated-test-sources/
+            test-annotations/
+        maven-archiver/
+            pom.properties
+        maven-status/
+            maven-compiler-plugin/
+                compile/
+                    default-compile/
+                        createdFiles.lst
+                        inputFiles.lst
+                testCompile/
+                    default-testCompile/
+                        createdFiles.lst
+                        inputFiles.lst
+        surefire-reports/
+            com.neostudios.starlight.AppTest.txt
+            TEST-com.neostudios.starlight.AppTest.xml
+        test-classes/
+            com/
+                neostudios/
+                    starlight/
+                        AppTest.class
+src/
+    main/
+        java/
+            com/
+                neostudios/
+                    starlight/
+                        neolight/
+```

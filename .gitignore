@@ -1,9 +1,8 @@
-# IntelliJ IDEA files
+# IDEs and Editors
 /.idea/
-/*.iml
-
-# VS Code settings
-.vscode/
+*.iml
+*.ipr
+*.iws
 
 # OS generated files
 .DS_Store
@@ -11,19 +10,43 @@ Thumbs.db
 
 # Logs
 *.log
+log/
+logs/
 
-# Java class files
+# Java class and build files
 *.class
+*.jar
+*.war
+*.ear
+*.swp
 
-# Node.js dependencies (if any)
+# Maven
+/target/
+/.mvn/
+
+# Node.js (if any)
 node_modules/
 
 # Environment files
 .env
 
-# Build artifacts
+# Build output
 /build/
 out/
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
+
+# Test, coverage, and reports
+/test/
+/coverage/
+/reports/
+
+# Misc
+*.tmp
+*.bak
+*.swp
+
+# VS Code history
+.history/
+

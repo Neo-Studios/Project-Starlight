@@ -31,36 +31,7 @@ Project Starlight is a modern, modular Java game starter kit and engine, built f
 
 ## 📂 Project Structure
 
-```file tree
-game/
-├── pom.xml
-├── assets/                # Game configuration and static assets
-│   └── game.properties
-├── src/
-│   ├── main/
-│   │   └── java/
-│   │       └── com/
-│   │           └── neostudios/
-│   │               └── starlight/
-│   │                   ├── App.java
-│   │                   ├── NeoLightEngine.java
-│   │                   ├── NeoLightGame.java
-│   │                   ├── Renderer.java
-│   │                   ├── GameState.java
-│   │                   ├── GameStateManager.java
-│   │                   ├── ConfigManager.java
-│   │                   ├── InputManager.java
-│   │                   ├── Player.java
-│   │                   └── assets/
-│   │                       └── AssetManager.java
-│   └── test/
-│       └── java/
-│           └── com/
-│               └── neostudios/
-│                   └── starlight/
-│                       └── AppTest.java
-└── target/
-```
+See [`tree.md`](tree.md) for the full repository folder tree.
 
 - **Engine & Game Logic:** [`src/main/java/com/neostudios/starlight/`](game/src/main/java/com/neostudios/starlight/)
 - **Assets & Config:** [`game/assets/`](game/assets/)
