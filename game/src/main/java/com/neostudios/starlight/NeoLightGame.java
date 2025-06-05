@@ -1,7 +1,8 @@
 package com.neostudios.starlight.neolight;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Graphics;
+
+import javax.swing.JPanel;
 
 /**
  * The NeoLightGame interface defines the contract for any game to be run by the NeoLight engine.
