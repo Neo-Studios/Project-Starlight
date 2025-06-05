@@ -7,7 +7,7 @@
   <img src="https://raw.githubusercontent.com/Neo-Studios/project-starlight/main/assets/logo.png" alt="Project Starlight Logo" width="200"/>
 </p>
 
->[!NOTE] 
+>[!TIP] 
 >This project uses a custom game engine, NeoLight, built by us.
 
 # Welcome to Project Starlight! 🌟
@@ -31,7 +31,7 @@ Project Starlight is a modern, modular Java game starter kit and engine, built f
 
 ## 📂 Project Structure
 
-```text
+```file tree
 game/
 ├── pom.xml
 ├── assets/                # Game configuration and static assets
@@ -73,7 +73,7 @@ game/
 1. **Clone the Repo:**
    ```sh
    git clone https://github.com/Neo-Studios/project-starlight.git
-   cd project-starlight
+   cd project-starlight/game
    ```
 2. **Build the Project:**
    ```sh
