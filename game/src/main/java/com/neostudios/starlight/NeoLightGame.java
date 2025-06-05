@@ -17,3 +17,5 @@ public interface NeoLightGame {
     void onShutdown();
     JPanel getPanel();
 }
+
+// This file is a duplicate. The real NeoLightGame is in the neolight package.

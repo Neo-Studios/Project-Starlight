@@ -21,3 +21,5 @@ public class EngineLogger {
     public static void warn(String msg) { log(Level.WARN, msg); }
     public static void error(String msg) { log(Level.ERROR, msg); }
 }
+
+// This file is a duplicate. The real EngineLogger is in the neolight package.

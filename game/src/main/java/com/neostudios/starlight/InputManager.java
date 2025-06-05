@@ -30,3 +30,5 @@ public class InputManager implements KeyListener {
         return pressedKeys.contains(keyCode);
     }
 }
+
+// This file is a duplicate. The real InputManager is in the neolight package.

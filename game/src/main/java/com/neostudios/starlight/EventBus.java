@@ -32,3 +32,5 @@ public class EventBus {
         }
     }
 }
+
+// This file is a duplicate. The real EventBus is in the neolight package.

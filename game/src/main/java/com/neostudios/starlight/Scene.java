@@ -13,3 +13,5 @@ public abstract class Scene {
     public void onResume() {}
     public void onShutdown() {}
 }
+
+// This file is a duplicate. The real Scene.java is in the neolight package.

@@ -33,3 +33,5 @@ public class SceneManager {
         return currentScene;
     }
 }
+
+// This file is a duplicate. The real SceneManager is in the neolight package.

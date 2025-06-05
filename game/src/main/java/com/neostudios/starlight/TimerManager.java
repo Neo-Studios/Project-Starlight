@@ -39,3 +39,5 @@ public class TimerManager {
         }
     }
 }
+
+// This file is a duplicate. The real TimerManager is in the neolight package.

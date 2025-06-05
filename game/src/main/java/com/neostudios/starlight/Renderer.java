@@ -43,3 +43,5 @@ public class Renderer {
         }
     }
 }
+
+// This file is a duplicate. The real Renderer is in the neolight package.
