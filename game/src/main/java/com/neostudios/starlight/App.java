@@ -1,8 +1,5 @@
 package com.neostudios.starlight;
 
-import com.neostudios.starlight.assets.AssetManager;
-import com.neostudios.starlight.neolight.*;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -13,6 +10,11 @@ import java.util.Map;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import com.neostudios.starlight.neolight.AssetManager;
+import com.neostudios.starlight.neolight.InputManager;
+import com.neostudios.starlight.neolight.NeoLightGame;
+import com.neostudios.starlight.neolight.Renderer;
 
 /**
  * Main game panel for Project Starlight. Handles game loop, input, and delegates rendering and state management.
