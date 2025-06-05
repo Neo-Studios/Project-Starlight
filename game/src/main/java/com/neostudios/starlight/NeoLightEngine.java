@@ -1,17 +1,19 @@
 package com.neostudios.starlight;
 
 import javax.swing.*;
-import java.awt.*;
+import java.util.List;
 
 /**
  * NeoLightEngine is a minimal custom game engine for Project Starlight.
- * It manages the game loop, window, and delegates update/render to the game.
+ * Now supports lifecycle events, logging, and a basic event system for extensibility.
  */
 public class NeoLightEngine {
     private final NeoLightGame game;
     private final JFrame frame;
     private final Timer timer;
-    private static final int FPS = 60;
+    private int fps = 60;
+    private boolean paused = false;
+    private final List<Runnable> shutdownHooks = new java.util.ArrayList<>();
 
     public NeoLightEngine(NeoLightGame game, String title, int width, int height) {
         this.game = game;
@@ -23,15 +25,56 @@ public class NeoLightEngine {
         frame.add(game.getPanel());
         frame.setVisible(true);
         // Game loop timer
-        this.timer = new Timer(1000 / FPS, e -> {
-            game.update();
-            game.getPanel().repaint();
+        this.timer = new Timer(1000 / fps, e -> {
+            if (!paused) {
+                game.onUpdate();
+                game.getPanel().repaint();
+            }
         });
+        // Add shutdown hook
+        Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
+    }
+
+    public void setFps(int fps) {
+        this.fps = fps;
+        timer.setDelay(1000 / fps);
     }
 
     public void start() {
-        game.init();
+        log("Engine starting...");
+        game.onInit();
         timer.start();
+    }
+
+    public void pause() {
+        if (!paused) {
+            paused = true;
+            log("Game paused.");
+            game.onPause();
+        }
+    }
+
+    public void resume() {
+        if (paused) {
+            paused = false;
+            log("Game resumed.");
+            game.onResume();
+        }
+    }
+
+    public void shutdown() {
+        log("Engine shutting down...");
+        timer.stop();
+        game.onShutdown();
+        for (Runnable hook : shutdownHooks) hook.run();
+    }
+
+    public void addShutdownHook(Runnable hook) {
+        shutdownHooks.add(hook);
+    }
+
+    public void log(String msg) {
+        System.out.println("[NeoLight] " + msg);
     }
 
     public static void main(String[] args) {

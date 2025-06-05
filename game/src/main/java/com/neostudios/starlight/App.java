@@ -5,11 +5,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -19,7 +17,6 @@ import javax.swing.Timer;
 public class App extends JPanel implements NeoLightGame {
     // --- Constants ---
     private static final String CONFIG_PATH = "/assets/game.properties";
-    private static final String TEXTURE_PATH = "/assets/textures/";
     private static final int TIMER_DELAY_MS = 16;
 
     // --- Core Managers ---
@@ -27,14 +24,14 @@ public class App extends JPanel implements NeoLightGame {
     private final InputManager inputManager;
     private final GameStateManager gameStateManager;
     private final Renderer renderer;
+    private final AssetManager assetManager = new AssetManager();
 
     // --- Game State ---
-    private final Player player;
     private final Map<String, BufferedImage> textures = new HashMap<>();
     private int playerX;
     private int playerY;
-    private int playerSize;
-    private int moveSpeed;
+    private final int playerSize;
+    private final int moveSpeed;
 
     // --- Demo Game Objects ---
     private final Enemy demoEnemy;
@@ -53,8 +50,6 @@ public class App extends JPanel implements NeoLightGame {
         this.inputManager = new InputManager();
         this.gameStateManager = new GameStateManager();
         this.renderer = new Renderer();
-        // Player setup
-        this.player = new Player("Player1");
         // Load textures
         loadTextures();
         // Window and player config
@@ -89,18 +84,13 @@ public class App extends JPanel implements NeoLightGame {
      */
     private void loadTextures() {
         String[] textureFiles = {
-            "player.png", "enemy.png", "background.png", "bullet.png", "powerup.png", "explosion.png",
-            "ui_heart.png", "ui_coin.png", "wall.png", "floor.png"
+            "assets/textures/player.png", "assets/textures/enemy.png", "assets/textures/background.png", "assets/textures/bullet.png", "assets/textures/powerup.png", "assets/textures/explosion.png",
+            "assets/textures/ui_heart.png", "assets/textures/ui_coin.png", "assets/textures/wall.png", "assets/textures/floor.png"
         };
         for (String file : textureFiles) {
-            try {
-                URL url = getClass().getResource(TEXTURE_PATH + file);
-                if (url != null) {
-                    BufferedImage img = ImageIO.read(url);
-                    textures.put(file, img);
-                }
-            } catch (IOException | IllegalArgumentException e) {
-                System.err.println("Warning: Could not load texture: " + file);
+            java.awt.image.BufferedImage img = assetManager.getImage(file);
+            if (img != null) {
+                textures.put(file.substring(file.lastIndexOf('/') + 1), img);
             }
         }
     }
@@ -173,7 +163,7 @@ public class App extends JPanel implements NeoLightGame {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        renderer.render(gameStateManager.getCurrentState(), g);
+        renderer.render(gameStateManager.getCurrentState(), g, this);
         // For now, keep legacy rendering for demonstration:
         switch (gameStateManager.getCurrentState()) {
             case MENU -> {
@@ -222,18 +212,37 @@ public class App extends JPanel implements NeoLightGame {
     }
 
     @Override
-    public void init() {
-        // No-op for now; could reset state if needed
+    public void onInit() {
+        // Initialize or reset game state here
     }
 
     @Override
-    public void update() {
+    public void onUpdate() {
         handleInput();
     }
 
     @Override
-    public void render(Graphics g) {
+    public void onRender(Graphics g) {
         paintComponent(g);
+    }
+
+    @Override
+    public void onPause() {
+        // Optional: handle pause logic
+    }
+
+    @Override
+    public void onResume() {
+        // Optional: handle resume logic
+    }
+
+    @Override
+    public void onShutdown() {
+        assetManager.clear();
+    }
+
+    public AssetManager getAssetManager() {
+        return assetManager;
     }
 
     @Override
