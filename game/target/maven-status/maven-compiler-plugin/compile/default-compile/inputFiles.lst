@@ -1,3 +1,7 @@
 /workspaces/Project-Starlight/game/src/main/java/com/neostudios/starlight/App.java
+/workspaces/Project-Starlight/game/src/main/java/com/neostudios/starlight/ConfigManager.java
 /workspaces/Project-Starlight/game/src/main/java/com/neostudios/starlight/GameState.java
+/workspaces/Project-Starlight/game/src/main/java/com/neostudios/starlight/GameStateManager.java
+/workspaces/Project-Starlight/game/src/main/java/com/neostudios/starlight/InputManager.java
 /workspaces/Project-Starlight/game/src/main/java/com/neostudios/starlight/Player.java
+/workspaces/Project-Starlight/game/src/main/java/com/neostudios/starlight/Renderer.java
