@@ -7,6 +7,9 @@
   <img src="https://raw.githubusercontent.com/Neo-Studios/project-starlight/main/assets/logo.png" alt="Project Starlight Logo" width="200"/>
 </p>
 
+>[!NOTE] 
+>This project uses a custom game engine, NeoLight, built by us.
+
 # Welcome to Project Starlight! 🌟
 
 Project Starlight is a modern, modular Java game starter kit and engine, built for learning, creativity, and rapid prototyping. It features the custom **NeoLight** engine, asset management, audio support, and a clean, extensible codebase. Whether you're a beginner or an experienced developer, this repo gives you the tools to build, test, and share your own Java games with ease.
