@@ -9,18 +9,20 @@
 
 # Welcome to Project Starlight! 🌟
 
-A modern, open-source Java game starter kit designed for creativity, learning, and fun. Whether you're a beginner or a seasoned developer, Project Starlight gives you the tools to build, test, and share your own games with ease.
+Project Starlight is a modern, modular Java game starter kit and engine, built for learning, creativity, and rapid prototyping. It features the custom **NeoLight** engine, asset management, audio support, and a clean, extensible codebase. Whether you're a beginner or an experienced developer, this repo gives you the tools to build, test, and share your own Java games with ease.
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-- ⚡ **Maven Build System**: Easy dependency management and builds.
-- ☕ **Modern Java (17+)**: Leverage the latest Java features.
-- 🧩 **Ready-to-Extend Structure**: Organize your code for scalability.
-- 🧪 **Unit Testing**: JUnit included for test-driven development.
-- 🖥️ **VS Code & Dev Container Support**: Instant setup for development.
-- 🎮 **Game-Ready Boilerplate**: Start coding your game logic right away!
+- ⚡ **NeoLight Game Engine**: Custom, extensible engine with lifecycle hooks, asset/audio management, and game state handling.
+- 🗂️ **Asset Management**: Centralized image and audio loading/caching for easy resource use.
+- 🔊 **Audio Support**: Play sound effects and music with simple API calls.
+- ☕ **Modern Java (17+)**: Uses the latest Java features and best practices.
+- 🧩 **Modular Structure**: Clean separation of engine, game logic, and assets for easy expansion.
+- 🧪 **JUnit 5 Testing**: Modern unit testing out of the box.
+- 🖥️ **VS Code & Dev Container Ready**: Instant setup for development.
+- 🚀 **Ready-to-Extend**: Add new features, scenes, or systems with minimal friction.
 
 ---
 
@@ -29,6 +31,8 @@ A modern, open-source Java game starter kit designed for creativity, learning, a
 ```text
 game/
 ├── pom.xml
+├── assets/                # Game configuration and static assets
+│   └── game.properties
 ├── src/
 │   ├── main/
 │   │   └── java/
@@ -36,8 +40,16 @@ game/
 │   │           └── neostudios/
 │   │               └── starlight/
 │   │                   ├── App.java
+│   │                   ├── NeoLightEngine.java
+│   │                   ├── NeoLightGame.java
+│   │                   ├── Renderer.java
 │   │                   ├── GameState.java
-│   │                   └── Player.java
+│   │                   ├── GameStateManager.java
+│   │                   ├── ConfigManager.java
+│   │                   ├── InputManager.java
+│   │                   ├── Player.java
+│   │                   └── assets/
+│   │                       └── AssetManager.java
 │   └── test/
 │       └── java/
 │           └── com/
@@ -47,75 +59,53 @@ game/
 └── target/
 ```
 
-- **Main Logic:** [`src/main/java/com/neostudios/starlight/`](game/src/main/java/com/neostudios/starlight/)
+- **Engine & Game Logic:** [`src/main/java/com/neostudios/starlight/`](game/src/main/java/com/neostudios/starlight/)
+- **Assets & Config:** [`game/assets/`](game/assets/)
 - **Tests:** [`src/test/java/com/neostudios/starlight/`](game/src/test/java/com/neostudios/starlight/)
 
 ---
 
-## ⚡ Quick Start
+## 🚀 Quick Start
 
-1. **Clone & Enter the Repo:**
+1. **Clone the Repo:**
    ```sh
    git clone https://github.com/Neo-Studios/project-starlight.git
    cd project-starlight
    ```
-2. **Build & Run:**
+2. **Build the Project:**
    ```sh
    mvn clean package
-   mvn exec:java -Dexec.mainClass="com.neostudios.starlight.App"
    ```
-3. **See your game in action!**
+3. **Run the Game (NeoLight Engine):**
+   ```sh
+   mvn exec:java -Dexec.mainClass="com.neostudios.starlight.NeoLightEngine"
+   ```
+4. **Run Tests:**
+   ```sh
+   mvn test
+   ```
 
 ---
 
-## 💡 Why Project Starlight?
+## 🛠️ What Makes This Repo Special?
 
-- Beginner-friendly, but powerful enough for advanced users
-- Modular, clean codebase for easy expansion
-- Active, welcoming community
-- Open to contributions and new ideas
-
----
-
-## 🛠️ Getting Started
-
-### 1. Clone the Repository
-
-```sh
-git clone https://github.com/Neo-Studios/project-starlight.git
-cd project-starlight
-```
-
-### 2. Build the Project
-
-```sh
-mvn clean package
-```
-
-### 3. Run the Game
-
-```sh
-mvn exec:java -Dexec.mainClass="com.neostudios.starlight.App"
-```
-
-### 4. Run Tests
-
-```sh
-mvn test
-```
+- **NeoLight Engine:** A simple, extensible Java game engine with a real game loop, asset/audio management, and lifecycle events.
+- **Asset Management:** Load images and audio from resources or JARs with a single call.
+- **Audio:** Play sound effects and music easily.
+- **Modern Java:** Uses Java 17+, Maven, and VS Code dev containers.
+- **Clean, Modular Code:** Easy to read, extend, and maintain.
+- **Beginner Friendly:** Great for learning Java game dev, but powerful enough for real projects.
 
 ---
 
-## 🖥️ Running in a Dev Container or Headless Environment
+## 🖥️ Dev Container & Headless Support
 
-If you are running in a dev container or headless environment, use Xvfb to provide a display for the game window:
+If running in a dev container or headless environment, use Xvfb to provide a display for the game window:
 
 ```sh
 sudo apt-get update && sudo apt-get install -y xvfb
-xvfb-run mvn exec:java -Dexec.mainClass="com.neostudios.starlight.App"
+xvfb-run mvn exec:java -Dexec.mainClass="com.neostudios.starlight.NeoLightEngine"
 ```
-
-You can also add this as a script or alias for convenience.
 
 ---
 
@@ -128,7 +118,7 @@ You can also add this as a script or alias for convenience.
 
 ---
 
-## 🤝 Contributing & Community
+## 🤝 Contributing
 
 Pull requests and suggestions are welcome! Please see our [Contributing Guide](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md).
 
