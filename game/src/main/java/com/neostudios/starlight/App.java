@@ -1,5 +1,7 @@
 package com.neostudios.starlight;
 
+import com.neostudios.starlight.assets.AssetManager;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;

@@ -1,4 +1,4 @@
-package com.neostudios.starlight;
+package com.neostudios.starlight.assets;
 
 import javax.sound.sampled.*;
 import java.io.IOException;
@@ -23,7 +23,6 @@ public class AssetManager {
                 imageCache.put(path, img);
                 return img;
             }
-        // Use multicatch for IOException and IllegalArgumentException
         } catch (IOException | IllegalArgumentException e) {
             System.err.println("[AssetManager] Failed to load image: " + path);
         }
