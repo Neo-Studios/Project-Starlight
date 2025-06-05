@@ -1,4 +1,4 @@
-package com.neostudios.starlight;
+package com.neostudios.starlight.neolight;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

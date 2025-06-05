@@ -1,5 +1,8 @@
 package com.neostudios.starlight;
 
+import com.neostudios.starlight.assets.AssetManager;
+import com.neostudios.starlight.neolight.*;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -10,8 +13,6 @@ import java.util.Map;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
-import com.neostudios.starlight.assets.AssetManager;
 
 /**
  * Main game panel for Project Starlight. Handles game loop, input, and delegates rendering and state management.
@@ -27,8 +28,6 @@ public class App extends JPanel implements NeoLightGame {
     private final GameStateManager gameStateManager;
     private final Renderer renderer;
     private final AssetManager assetManager = new AssetManager();
-    private SceneManager sceneManager;
-    private final TimerManager timerManager = new TimerManager();
 
     // --- Game State ---
     private final Map<String, BufferedImage> textures = new HashMap<>();
@@ -40,9 +39,6 @@ public class App extends JPanel implements NeoLightGame {
     // --- Demo Game Objects ---
     private final Enemy demoEnemy;
     private final Bullet demoBullet;
-
-    // --- Event Bus ---
-    private final EventBus eventBus = new EventBus();
 
     public App() {
         // Load configuration
@@ -220,25 +216,17 @@ public class App extends JPanel implements NeoLightGame {
 
     @Override
     public void onInit() {
-        // Example: set up scenes
-        sceneManager = new SceneManager();
-        // Add scenes here, e.g. sceneManager.addScene("main", new MainGameScene());
-        // sceneManager.switchTo("main");
+        // Initialize or reset game state here
     }
 
     @Override
     public void onUpdate() {
-        if (sceneManager != null) sceneManager.update();
         handleInput();
     }
 
     @Override
     public void onRender(Graphics g) {
-        if (sceneManager != null && sceneManager.getCurrentScene() != null) {
-            sceneManager.render(g);
-        } else {
-            paintComponent(g);
-        }
+        paintComponent(g);
     }
 
     @Override
@@ -254,19 +242,10 @@ public class App extends JPanel implements NeoLightGame {
     @Override
     public void onShutdown() {
         assetManager.clear();
-        timerManager.shutdown();
     }
 
     public AssetManager getAssetManager() {
         return assetManager;
-    }
-
-    public EventBus getEventBus() {
-        return eventBus;
-    }
-
-    public TimerManager getTimerManager() {
-        return timerManager;
     }
 
     @Override

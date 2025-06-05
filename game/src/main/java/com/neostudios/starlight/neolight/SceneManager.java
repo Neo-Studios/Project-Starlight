@@ -1,11 +1,11 @@
-package com.neostudios.starlight;
+package com.neostudios.starlight.neolight;
 
 import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * SceneManager handles switching and updating scenes in the NeoLight engine.
+ * SceneManager handles switching between different scenes (e.g., menu, game, pause).
  */
 public class SceneManager {
     private final Map<String, Scene> scenes = new HashMap<>();
@@ -16,17 +16,17 @@ public class SceneManager {
     }
 
     public void switchTo(String name) {
-        if (currentScene != null) currentScene.onExit();
+        if (currentScene != null) currentScene.onPause();
         currentScene = scenes.get(name);
-        if (currentScene != null) currentScene.onEnter();
+        if (currentScene != null) currentScene.onResume();
     }
 
-    public void update() {
-        if (currentScene != null) currentScene.update();
+    public void update(double deltaTime) {
+        if (currentScene != null) currentScene.onUpdate(deltaTime);
     }
 
     public void render(Graphics g) {
-        if (currentScene != null) currentScene.render(g);
+        if (currentScene != null) currentScene.onRender(g);
     }
 
     public Scene getCurrentScene() {

@@ -1,4 +1,4 @@
-package com.neostudios.starlight;
+package com.neostudios.starlight.neolight;
 
 import com.neostudios.starlight.assets.AssetManager;
 import java.awt.Graphics;

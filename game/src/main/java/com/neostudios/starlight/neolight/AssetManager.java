@@ -1,4 +1,4 @@
-package com.neostudios.starlight.assets;
+package com.neostudios.starlight.neolight;
 
 import javax.sound.sampled.*;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.neostudios.starlight;
+package com.neostudios.starlight.neolight;
 
 import javax.swing.*;
 import java.awt.*;
