@@ -7,6 +7,7 @@ import java.util.Set;
 
 /**
  * Handles user input and maintains the current state of key presses.
+ * Implements KeyListener for keyboard events.
  */
 public class InputManager implements KeyListener {
     private final Set<Integer> pressedKeys = new HashSet<>();

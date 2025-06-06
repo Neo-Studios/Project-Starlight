@@ -5,6 +5,7 @@ import java.util.Set;
 
 /**
  * TimerManager allows scheduling of delayed or repeated tasks.
+ * Use schedule() to add tasks, and call update(deltaTime) each frame.
  */
 public class TimerManager {
     private final Set<TimerTask> tasks = new HashSet<>();

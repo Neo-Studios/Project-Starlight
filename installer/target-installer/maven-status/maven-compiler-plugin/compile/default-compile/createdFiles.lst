@@ -1,0 +1,7 @@
+com/neostudios/starlight/installer/InstallUtil.class
+com/neostudios/starlight/installer/InstallerApp.class
+com/neostudios/starlight/installer/InstallerController.class
+com/neostudios/starlight/installer/GitCloneUtil.class
+com/neostudios/starlight/installer/JavaDetector.class
+com/neostudios/starlight/installer/ShortcutUtil.class
+com/neostudios/starlight/installer/CleanupUtil.class

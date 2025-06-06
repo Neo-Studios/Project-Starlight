@@ -25,8 +25,24 @@ public class SceneManager {
         if (currentScene != null) currentScene.onUpdate(deltaTime);
     }
 
+    /**
+     * @deprecated Use update(double deltaTime) instead.
+     */
+    @Deprecated
+    public void update() {
+        update(0);
+    }
+
     public void render(Graphics g) {
         if (currentScene != null) currentScene.onRender(g);
+    }
+
+    /**
+     * @deprecated Use render(Graphics g) instead.
+     */
+    @Deprecated
+    public void render() {
+        render(null);
     }
 
     public Scene getCurrentScene() {

@@ -14,6 +14,11 @@
       <version>5.10.2</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.neostudios.starlight</groupId>
+      <artifactId>neolight</artifactId>
+      <version>0.1.0-SNAPSHOT</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>

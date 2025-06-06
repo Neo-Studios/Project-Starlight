@@ -26,6 +26,7 @@ public class App extends JPanel implements com.neostudios.starlight.neolight.Neo
     private NeoLightEngine engine;
 
     public App() {
+        super();
         // Load configuration
         ConfigManager cfg;
         try {
@@ -93,8 +94,8 @@ public class App extends JPanel implements com.neostudios.starlight.neolight.Neo
     }
 
     @Override
-    public void onInit() {
-        // Register and switch to the main scene
+    public void init() {
+        // Initialization logic
         if (engine != null) {
             SceneManager sm = engine.getSceneManager();
             sm.addScene("main", starlightScene);
@@ -103,24 +104,9 @@ public class App extends JPanel implements com.neostudios.starlight.neolight.Neo
     }
 
     @Override
-    public void onUpdate() {
-        // All update logic is handled by the scene system
+    public void render(java.awt.Graphics g) {
+        // Rendering logic (delegated to scene system)
     }
-
-    @Override
-    public void onRender(java.awt.Graphics g) {
-        // All rendering is handled by the scene system
-    }
-
-    @Override
-    public void onPause() {}
-    @Override
-    public void onResume() {}
-    @Override
-    public void onShutdown() { assetManager.clear(); }
-    public AssetManager getAssetManager() { return assetManager; }
-    @Override
-    public JPanel getPanel() { return this; }
 
     public void setEngine(NeoLightEngine engine) {
         this.engine = engine;

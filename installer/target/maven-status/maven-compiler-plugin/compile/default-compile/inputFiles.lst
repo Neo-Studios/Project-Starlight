@@ -1,0 +1,7 @@
+/workspaces/Project-Starlight/installer/src/main/java/com/neostudios/starlight/installer/InstallerController.java
+/workspaces/Project-Starlight/installer/src/main/java/com/neostudios/starlight/installer/InstallUtil.java
+/workspaces/Project-Starlight/installer/src/main/java/com/neostudios/starlight/installer/GitCloneUtil.java
+/workspaces/Project-Starlight/installer/src/main/java/com/neostudios/starlight/installer/CleanupUtil.java
+/workspaces/Project-Starlight/installer/src/main/java/com/neostudios/starlight/installer/ShortcutUtil.java
+/workspaces/Project-Starlight/installer/src/main/java/com/neostudios/starlight/installer/JavaDetector.java
+/workspaces/Project-Starlight/installer/src/main/java/com/neostudios/starlight/installer/InstallerApp.java
