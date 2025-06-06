@@ -33,7 +33,7 @@ public class InstallerController {
     private File tempCloneDir;
     private File installDir;
     private boolean createDesktopShortcut = false;
-    private static final String REPO_URL = "https://github.com/your-org/Project-Starlight.git"; // TODO: set actual repo
+    private static final String REPO_URL = "https://github.com/Neo-Studios/Project-Starlight.git"; 
     private static final String GAME_JAR = "game-0.0.1.alpha1.jar";
     private final String os;
 
