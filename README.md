@@ -7,6 +7,9 @@
   <img src="https://raw.githubusercontent.com/Neo-Studios/project-starlight/main/assets/logo.png" alt="Project Starlight Logo" width="200"/>
 </p>
 
+>[!WARNING]
+>This project is currently broken. Wenarevworking on a fix and will be making large changes to frameworks and infrastructure.
+
 >[!TIP] 
 >This project uses a custom game engine, NeoLight, built by us.
 
