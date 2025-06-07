@@ -40,8 +40,19 @@ jobs:
                 <password>\${MAVEN_PASSWORD}</password>
               </server>
             </servers>
+            <mirrors>
+              <mirror>
+                <id>github</id>
+                <mirrorOf>github</mirrorOf>
+                <url>https://maven.pkg.github.com/Neo-Studios/Project-Starlight</url>
+              </mirror>
+            </mirrors>
           </settings>
           EOF
+      - name: Build neolight first
+        run: mvn clean install --file neolight/pom.xml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish game with Maven
         run: mvn deploy --file game/pom.xml
         env:
