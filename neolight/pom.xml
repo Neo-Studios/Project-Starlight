@@ -36,4 +36,11 @@
             <url>https://maven.pkg.github.com/Neo-Studios/Project-Starlight</url>
         </repository>
     </distributionManagement>
+    <repositories>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/Neo-Studios/Project-Starlight</url>
+        </repository>
+    </repositories>
 </project>

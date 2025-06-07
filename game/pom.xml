@@ -50,4 +50,11 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  <repositories>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/Neo-Studios/Project-Starlight</url>
+    </repository>
+  </repositories>
 </project>
