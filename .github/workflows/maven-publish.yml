@@ -11,6 +11,11 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -20,7 +25,32 @@ jobs:
         run: |
           echo "MAVEN_USERNAME=${{ github.actor }}" >> $GITHUB_ENV
           echo "MAVEN_PASSWORD=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
-      - name: Publish with Maven
+      - name: Create Maven settings.xml
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml << EOF
+          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                                        https://maven.apache.org/xsd/settings-1.0.0.xsd">
+            <servers>
+              <server>
+                <id>github</id>
+                <username>\${MAVEN_USERNAME}</username>
+                <password>\${MAVEN_PASSWORD}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
+      - name: Publish game with Maven
         run: mvn deploy --file game/pom.xml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish engine with Maven
+        run: mvn deploy --file neolight/pom.xml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish installer with Maven
+        run: mvn deploy --file installer/pom.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

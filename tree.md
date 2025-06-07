@@ -1,8 +1,11 @@
-# Project Starlight – Full Repository Folder Tree (as of 2025-06-05)
+# Project Starlight – Full Repository Folder Tree (as of 2025-06-07)
 
 ```
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md
+.github/
+    workflows/
+        maven-publish.yml
 guide-to-java.md
 LICENSE
 README_TEMPLATE.md
@@ -39,7 +42,8 @@ game/
                                 NeoLightGame.java
                                 Renderer.java
                                 Scene.java
-                                ...
+                                SceneManager.java
+                                TimerManager.java
         test/
             java/
                 com/
@@ -47,8 +51,7 @@ game/
                         starlight/
                             AppTest.java
     target/
-        game-0.0.1.alpha1.jar
-        prototype-proto1.test.110004062025.dev_unit.jar
+        prototype-proto2.test.0648762025.dev_unit.jar
         classes/
             com/
                 neostudios/
@@ -99,11 +102,33 @@ game/
                 neostudios/
                     starlight/
                         AppTest.class
-src/
-    main/
-        java/
-            com/
-                neostudios/
-                    starlight/
-                        neolight/
+neolight/
+    pom.xml
+    src/
+        main/
+            java/
+                com/
+                    neostudios/
+                        starlight/
+                            neolight/
+                                AssetManager.java
+                                EngineLogger.java
+                                EventBus.java
+                                InputManager.java
+                                NeoLightEngine.java
+                                NeoLightGame.java
+                                Renderer.java
+                                Scene.java
+                                SceneManager.java
+                                TimerManager.java
+installer/
+    pom.xml
+    src/
+        main/
+            java/
+                com/
+                    neostudios/
+                        starlight/
+                            installer/
+                                Installer.java
 ```

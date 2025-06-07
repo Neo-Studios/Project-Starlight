@@ -4,7 +4,7 @@
   <groupId>com.neostudios.starlight</groupId>
   <artifactId>prototype</artifactId>
   <packaging>jar</packaging>
-  <version>proto2.test.1148562025.dev_unit</version>
+  <version>proto2.test.0648762025.dev_unit</version>
   <name>Project Starlight</name>
   <url>http://maven.apache.org</url>
   <dependencies>
