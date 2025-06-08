@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.swing.JPanel;
 
 import com.neostudios.starlight.neolight.AssetManager;
+import com.neostudios.starlight.neolight.FadeTransition;
 import com.neostudios.starlight.neolight.InputManager;
 import com.neostudios.starlight.neolight.NeoLightEngine;
 import com.neostudios.starlight.neolight.SceneManager;
@@ -19,11 +20,13 @@ public class App extends JPanel implements com.neostudios.starlight.neolight.Neo
     private final ConfigManager configManager;
     private final InputManager inputManager;
     private final GameStateManager gameStateManager;
-    private final AssetManager assetManager = new AssetManager();
-    private final Map<String, BufferedImage> textures = new HashMap<>();
+    private final AssetManager assetManager;
+    private final Map<String, BufferedImage> textures;
     private final int playerX, playerY, playerSize, moveSpeed;
     private final StarlightScene starlightScene;
     private NeoLightEngine engine;
+    private SceneManager sceneManager;
+    private FadeTransition fadeTransition;
 
     public App() {
         super();
@@ -38,21 +41,26 @@ public class App extends JPanel implements com.neostudios.starlight.neolight.Neo
         this.configManager = cfg;
         this.inputManager = new InputManager();
         this.gameStateManager = new GameStateManager();
-        // Load textures
-        loadTextures();
+        this.assetManager = AssetManager.getInstance();
+        this.textures = new HashMap<>();
+        this.fadeTransition = new FadeTransition();
+        
         // Window and player config
-        int width = getIntConfig("window.width", 500);
-        int height = getIntConfig("window.height", 500);
+        int width = getIntConfig("window.width", 800);
+        int height = getIntConfig("window.height", 600);
         setPreferredSize(new Dimension(width, height));
         setFocusable(true);
         setBackground(Color.BLACK);
-        this.playerX = getIntConfig("player.start_x", 200);
-        this.playerY = getIntConfig("player.start_y", 200);
+        
+        this.playerX = getIntConfig("player.start_x", width / 2);
+        this.playerY = getIntConfig("player.start_y", height / 2);
         this.playerSize = getIntConfig("player.size", 40);
         this.moveSpeed = getIntConfig("player.move_speed", 5);
+        
         // Input
         addKeyListener(inputManager);
-        // Create the main scene and register it
+        
+        // Create the main scene
         this.starlightScene = new StarlightScene(gameStateManager, inputManager, textures, playerX, playerY, playerSize, moveSpeed);
     }
 
@@ -68,44 +76,47 @@ public class App extends JPanel implements com.neostudios.starlight.neolight.Neo
      */
     private void loadTextures() {
         String[] textureFiles = {
-            "assets/textures/player.png", "assets/textures/enemy.png", "assets/textures/background.png", "assets/textures/bullet.png", "assets/textures/powerup.png", "assets/textures/explosion.png",
-            "assets/textures/ui_heart.png", "assets/textures/ui_coin.png", "assets/textures/wall.png", "assets/textures/floor.png"
+            "assets/textures/player.png",
+            "assets/textures/enemy.png",
+            "assets/textures/background.png",
+            "assets/textures/bullet.png",
+            "assets/textures/powerup.png",
+            "assets/textures/explosion.png",
+            "assets/textures/ui_heart.png",
+            "assets/textures/ui_coin.png",
+            "assets/textures/wall.png",
+            "assets/textures/floor.png"
         };
-        for (String file : textureFiles) {
-            BufferedImage img = assetManager.getImage(file);
-            if (img != null) {
-                textures.put(file.substring(file.lastIndexOf('/') + 1), img);
-            }
-        }
-    }
 
-    /**
-     * Delegates rendering to the current scene.
-     */
-    @Override
-    protected void paintComponent(java.awt.Graphics g) {
-        super.paintComponent(g);
-        // Delegate rendering to the current scene
-        if (engine != null) {
-            SceneManager sm = engine.getSceneManager();
-            com.neostudios.starlight.neolight.Scene current = sm.getCurrentScene();
-            if (current != null) current.onRender(g);
+        for (String file : textureFiles) {
+            try {
+                BufferedImage img = assetManager.loadImageAsync(file).get();
+                if (img != null) {
+                    textures.put(file.substring(file.lastIndexOf('/') + 1), img);
+                }
+            } catch (Exception e) {
+                System.err.println("Failed to load texture: " + file);
+                e.printStackTrace();
+            }
         }
     }
 
     @Override
     public void init() {
-        // Initialization logic
+        // Load assets
+        loadTextures();
+        
+        // Initialize scene manager
         if (engine != null) {
-            SceneManager sm = engine.getSceneManager();
-            sm.addScene("main", starlightScene);
-            sm.switchTo("main");
+            sceneManager = engine.getSceneManager();
+            sceneManager.addScene("main", starlightScene);
+            sceneManager.switchTo("main", fadeTransition);
         }
     }
 
     @Override
-    public void render(java.awt.Graphics g) {
-        // Rendering logic (delegated to scene system)
+    public void render(java.awt.Graphics2D g) {
+        // Rendering is handled by the scene system
     }
 
     public void setEngine(NeoLightEngine engine) {
@@ -118,8 +129,9 @@ public class App extends JPanel implements com.neostudios.starlight.neolight.Neo
 
     public static void main(String[] args) {
         App app = new App();
-        int width = app.getPreferredSize().width > 0 ? app.getPreferredSize().width : 500;
-        int height = app.getPreferredSize().height > 0 ? app.getPreferredSize().height : 500;
+        int width = app.getPreferredSize().width;
+        int height = app.getPreferredSize().height;
+        
         NeoLightEngine engine = new NeoLightEngine(app, "Project Starlight - NeoLight", width, height, null);
         app.setEngine(engine);
         engine.start();
